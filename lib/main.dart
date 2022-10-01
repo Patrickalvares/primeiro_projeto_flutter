@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(
+            leading: Container(),
             title: Text('Tarefas'),
           ),
           body: ListView(
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
               Task('Jogar video-game'),
             ],
           ),
-          floatingActionButton: FloatingActionButton(onPressed: () {}),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+          ),
         ));
   }
 }
@@ -82,20 +85,55 @@ class _TaskState extends State<Task> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              nivel++;
-                            });
-                            print(nivel);
-                          },
-                          child: (Icon(Icons.arrow_drop_up)))
+                      Container(
+                        height: 52,
+                        width: 52,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                nivel++;
+                              });
+                              print(nivel);
+                            },
+                            child: (Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Icon(Icons.arrow_drop_up),
+                                Text(
+                                  'UP',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ))),
+                      )
                     ],
                   ),
                 ),
-                Text(
-                  'Nivel : $nivel',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        child: LinearProgressIndicator(
+                          color: Colors.white,
+                          value: nivel / 10,
+                        ),
+                        width: 200,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Nivel : $nivel',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             )
