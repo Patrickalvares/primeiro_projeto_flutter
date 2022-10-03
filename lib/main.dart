@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,30 +26,38 @@ class MyApp extends StatelessWidget {
             leading: Container(),
             title: Text('Tarefas'),
           ),
-          body: ListView(children: [
-            Task(
-                'Aprender Flutter',
-                'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
-                4),
-            Task(
-                'Andar de bike',
-                'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',
-                2),
-            Task(
-                'Meditar',
-                'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
-                5),
-            Task('Jogar video-game',
-                'https://i.ibb.co/tB29PZB/kako-epifania-2022-2-c-pia.jpg', 1),
-            Task(
-                'Ler',
-                'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
-                2),
-          ]),
+          body: AnimatedOpacity(
+            opacity: opacidade ? 1 : 0,
+            duration: Duration(milliseconds: 1000),
+            child: ListView(children: [
+              Task(
+                  'Aprender Flutter',
+                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+                  4),
+              Task(
+                  'Andar de bike',
+                  'https://tswbike.com/wp-content/uploads/2020/09/108034687_626160478000800_2490880540739582681_n-e1600200953343.jpg',
+                  2),
+              Task(
+                  'Meditar',
+                  'https://manhattanmentalhealthcounseling.com/wp-content/uploads/2019/06/Top-5-Scientific-Findings-on-MeditationMindfulness-881x710.jpeg',
+                  5),
+              Task('Jogar video-game',
+                  'https://i.ibb.co/tB29PZB/kako-epifania-2022-2-c-pia.jpg', 1),
+              Task(
+                  'Ler',
+                  'https://thebogotapost.com/wp-content/uploads/2017/06/636052464065850579-137719760_flyer-image-1.jpg',
+                  2),
+            ]),
+          ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blueGrey,
-            child: Icon(Icons.add_circle_outline_sharp),
-            onPressed: () {},
+            backgroundColor: Colors.black45,
+            child: Icon(Icons.remove_red_eye),
+            onPressed: () {
+              setState(() {
+                opacidade = !opacidade;
+              });
+            },
           ),
         ));
   }
@@ -70,7 +85,17 @@ class _TaskState extends State<Task> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8), color: Colors.blue),
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.blue,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.9),
+                    spreadRadius: 4,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
               height: 140,
             ),
             Column(
