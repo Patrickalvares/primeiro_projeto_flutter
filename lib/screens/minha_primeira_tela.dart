@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyFirstWidget extends StatelessWidget {
@@ -66,9 +67,10 @@ class MyFirstWidget extends StatelessWidget {
             color: Colors.amber,
             height: 30,
             width: 300,
+            // ignore: prefer_const_constructors
             child: Text(
               'Diamante amarelo',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25,
               ),
@@ -77,9 +79,11 @@ class MyFirstWidget extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                print('você apertou o botão');
+                if (kDebugMode) {
+                  print('você apertou o botão');
+                }
               },
-              child: Text('Aperte o botão!'))
+              child: const Text('Aperte o botão!'))
         ],
       ),
     );
