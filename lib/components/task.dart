@@ -7,6 +7,7 @@ class Task extends StatefulWidget {
   final String nome;
   final String foto;
   final int dificuldade;
+
   const Task(this.nome, this.foto, this.dificuldade, {Key? key})
       : super(key: key);
 
@@ -16,6 +17,30 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   int nivel = 0;
+  double valor = 0.01;
+  int i = 0;
+  List<Color> corBarra = [
+    Colors.blue,
+    Colors.red,
+    Colors.green,
+    Colors.yellow,
+    Colors.purple,
+    Colors.deepOrange
+  ];
+
+  verificarValor() {
+    if (valor > 0 && valor <= 1) {
+      valor = (valor + (0.25 / widget.dificuldade));
+    } else {
+      if (i < 5) {
+        i++;
+      } else {
+        i = 0;
+      }
+      valor = 0.01;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +50,7 @@ class _TaskState extends State<Task> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Colors.blue,
+              color: corBarra[i],
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.9),
@@ -78,27 +103,33 @@ class _TaskState extends State<Task> {
                     ),
                     SizedBox(
                       height: 52,
-                      width: 52,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              nivel++;
-                            });
-                            if (kDebugMode) {
-                              print(nivel);
-                            }
-                          },
-                          child: (Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: const [
-                              Icon(Icons.arrow_drop_up),
-                              Text(
-                                'UP',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ],
-                          ))),
+                      width: 72,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                verificarValor();
+                                nivel++;
+                              });
+                              if (kDebugMode) {
+                                print(nivel);
+                              }
+                            },
+                            child: (Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: const [
+                                Icon(Icons.arrow_drop_up),
+                                Text(
+                                  'UP',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ))),
+                      ),
                     )
                   ],
                 ),
@@ -112,9 +143,7 @@ class _TaskState extends State<Task> {
                       width: 200,
                       child: LinearProgressIndicator(
                         color: Colors.white,
-                        value: (widget.dificuldade > 0)
-                            ? (nivel / widget.dificuldade) / 10
-                            : 1,
+                        value: valor,
                       ),
                     ),
                   ),
