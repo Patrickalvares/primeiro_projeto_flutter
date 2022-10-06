@@ -32,7 +32,7 @@ class _TaskState extends State<Task> {
     if (valor > 0 && valor <= 1) {
       valor = (valor + (0.25 / widget.dificuldade));
     } else {
-      if (i < 5) {
+      if (i < corBarra.length - 1) {
         i++;
       } else {
         i = 0;
