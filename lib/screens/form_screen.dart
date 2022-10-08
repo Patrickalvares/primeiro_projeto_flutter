@@ -28,11 +28,12 @@ class _FormScreenState extends State<FormScreen> {
               height: 650,
               width: 375,
               decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    width: 3,
-                  )),
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: 3,
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,6 +137,13 @@ class _FormScreenState extends State<FormScreen> {
                           print(nameController.text);
                           print(int.parse(difficultyController.text));
                           print(imageController.text);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.green,
+                              duration: Duration(milliseconds: 2500),
+                              content: Text('Salvando Nova Tarefa'),
+                            ),
+                          );
                         }
                       },
                       child: const Text('Adicionar!')),
