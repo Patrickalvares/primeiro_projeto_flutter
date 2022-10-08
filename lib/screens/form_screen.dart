@@ -19,97 +19,102 @@ class _FormScreenState extends State<FormScreen> {
         title: const Text('Nova Tarefa'),
       ),
       body: Center(
-        child: Container(
-          height: 650,
-          width: 375,
-          decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 3,
-              )),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  controller: nameController,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Nome da Tarefa',
-                    fillColor: Colors.white70,
-                    filled: true,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  controller: difficultyController,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Dificuldade da Tarefa',
-                    fillColor: Colors.white70,
-                    filled: true,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  onChanged: (text) {
-                    setState(() {});
-                  },
-                  controller: imageController,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Imagem da Tarefa',
-                    fillColor: Colors.white70,
-                    filled: true,
-                  ),
-                ),
-              ),
-              Container(
-                height: 100,
-                width: 72,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(width: 2, color: Colors.blue),
-                  color: Colors.blue,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.9),
-                      spreadRadius: 4,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3), // changes position of shadow
+        child: SingleChildScrollView(
+          child: Container(
+            height: 650,
+            width: 375,
+            decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: 3,
+                )),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: nameController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Nome da Tarefa',
+                      fillColor: Colors.white70,
+                      filled: true,
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    imageController.text,
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                      return Image.asset('assets/images/no_image.png');
-                    },
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    print(nameController.text);
-                    print(int.parse(difficultyController.text));
-                    print(imageController.text);
-                  },
-                  child: const Text('Adicionar!')),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: difficultyController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Dificuldade da Tarefa',
+                      fillColor: Colors.white70,
+                      filled: true,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.url,
+                    onChanged: (text) {
+                      setState(() {});
+                    },
+                    controller: imageController,
+                    textAlign: TextAlign.center,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Imagem da Tarefa',
+                      fillColor: Colors.white70,
+                      filled: true,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: 72,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(width: 2, color: Colors.blue),
+                    color: Colors.blue,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.9),
+                        spreadRadius: 4,
+                        blurRadius: 7,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      imageController.text,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Image.asset('assets/images/no_image.png');
+                      },
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      print(nameController.text);
+                      print(int.parse(difficultyController.text));
+                      print(imageController.text);
+                    },
+                    child: const Text('Adicionar!')),
+              ],
+            ),
           ),
         ),
       ),
