@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:repos/components/task.dart';
+import 'package:repos/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class InitialScreen extends StatefulWidget {
 
 class _InitialScreenState extends State<InitialScreen> {
   bool opacidade = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,14 +33,34 @@ class _InitialScreenState extends State<InitialScreen> {
           )
         ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black45,
-        child: const Icon(Icons.remove_red_eye),
-        onPressed: () {
-          setState(() {
-            opacidade = !opacidade;
-          });
-        },
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: FloatingActionButton(
+              backgroundColor: Colors.black45,
+              child: const Icon(Icons.remove_red_eye),
+              onPressed: () {
+                setState(() {
+                  opacidade = !opacidade;
+                });
+              },
+            ),
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.green,
+            child: const Icon(
+              Icons.add,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FormScreen()),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

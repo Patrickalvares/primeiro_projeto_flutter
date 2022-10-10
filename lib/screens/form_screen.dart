@@ -144,6 +144,7 @@ class _FormScreenState extends State<FormScreen> {
                               content: Text('Salvando Nova Tarefa'),
                             ),
                           );
+                          Navigator.pop(context);
                         }
                       },
                       child: const Text('Adicionar!')),
