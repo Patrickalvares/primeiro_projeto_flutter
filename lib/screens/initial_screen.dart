@@ -49,7 +49,9 @@ class _InitialScreenState extends State<InitialScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FormScreen()),
+                MaterialPageRoute(
+                  builder: (contextNew) => FormScreen(taskContext: context),
+                ),
               );
             },
           ),
