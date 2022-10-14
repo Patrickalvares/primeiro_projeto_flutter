@@ -8,15 +8,22 @@ class Task extends StatefulWidget {
   final String foto;
   final int dificuldade;
 
-  const Task(this.nome, this.foto, this.dificuldade, {Key? key})
-      : super(key: key);
+  Task(this.nome, this.foto, this.dificuldade, {Key? key}) : super(key: key);
+
+  int nivel = 0;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+  bool assetOrNetwork() {
+    if (widget.foto.contains('http')) {
+      return false;
+    }
+    return true;
+  }
+
   double valor = 0.01;
   int i = 0;
   List<Color> corBarra = [
@@ -80,10 +87,12 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          widget.foto,
-                          fit: BoxFit.cover,
-                        ),
+                        child: assetOrNetwork()
+                            ? Image.asset(
+                                widget.foto,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(widget.foto, fit: BoxFit.cover),
                       ),
                     ),
                     Column(
@@ -110,10 +119,10 @@ class _TaskState extends State<Task> {
                             onPressed: () {
                               setState(() {
                                 verificarValor();
-                                nivel++;
+                                widget.nivel++;
                               });
                               if (kDebugMode) {
-                                print(nivel);
+                                print(widget.nivel);
                               }
                             },
                             child: (Column(
@@ -150,7 +159,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Nivel : $nivel',
+                      'Nivel : ${widget.nivel}',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,

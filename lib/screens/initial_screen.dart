@@ -16,7 +16,10 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
+        leading: const Icon(
+          Icons.check_circle_outline_sharp,
+          size: 40,
+        ),
         title: const Text('Tarefas'),
       ),
       body: AnimatedOpacity(
