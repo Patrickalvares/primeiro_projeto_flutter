@@ -20,7 +20,15 @@ class _InitialScreenState extends State<InitialScreen> {
           Icons.check_circle_outline_sharp,
           size: 40,
         ),
-        title: const Text('Tarefas'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Text('Tarefas'),
+            Container(
+              child: Text('teste'),
+            )
+          ],
+        ),
       ),
       body: AnimatedOpacity(
         opacity: opacidade ? 1 : 0,
