@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:repos/data/task_inherited.dart';
+
+import '../data/task_inherited.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key, required this.taskContext}) : super(key: key);
@@ -17,16 +18,16 @@ class _FormScreenState extends State<FormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  bool valueValidator(String? value) {
-    if (value != null && value.isEmpty) {
+  bool valueValidator(String? value){
+    if(value != null && value.isEmpty){
       return true;
     }
     return false;
   }
-
-  bool difficultyValidator(String? value) {
-    if (value != null && value.isEmpty) {
-      if (int.parse(value) > 5 || int.parse(value) < 1) {
+  bool difficultyValidator(String? value){
+    if(value != null && value.isEmpty){
+      if(int.parse(value) > 5 ||
+          int.parse(value) < 1){
         return true;
       }
     }
@@ -49,16 +50,14 @@ class _FormScreenState extends State<FormScreen> {
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  width: 3,
-                ),
+                border: Border.all(width: 3),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (String? value) {
                         if (valueValidator(value)) {
@@ -68,52 +67,52 @@ class _FormScreenState extends State<FormScreen> {
                       },
                       controller: nameController,
                       textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Nome da Tarefa',
+                        hintText: 'Nome',
                         fillColor: Colors.white70,
                         filled: true,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value) {
                         if (difficultyValidator(value)) {
-                          return 'Insira uma Dificuldade entre 1 e 5';
+                          return 'Insira um Dificuldade entre 1 e 5';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.number,
                       controller: difficultyController,
                       textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Dificuldade da Tarefa',
+                        hintText: 'Dificuldade',
                         fillColor: Colors.white70,
                         filled: true,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      onChanged: (text) {
+                        setState(() {});
+                      },
                       validator: (value) {
                         if (valueValidator(value)) {
-                          return 'Insira um URL de Imagem';
+                          return 'Insira um URL de Imagem!';
                         }
                         return null;
                       },
                       keyboardType: TextInputType.url,
-                      onChanged: (text) {
-                        setState(() {});
-                      },
                       controller: imageController,
                       textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: 'Imagem da Tarefa',
+                        hintText: 'Imagem',
                         fillColor: Colors.white70,
                         filled: true,
                       ),
@@ -123,18 +122,9 @@ class _FormScreenState extends State<FormScreen> {
                     height: 100,
                     width: 72,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(width: 2, color: Colors.blue),
                       color: Colors.blue,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.9),
-                          spreadRadius: 4,
-                          blurRadius: 7,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 2, color: Colors.blue),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -152,25 +142,21 @@ class _FormScreenState extends State<FormScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // print(nameController.text);
-                        // print(int.parse(difficultyController.text));
+                        // print(difficultyController.text);
                         // print(imageController.text);
-
-                        TaskIncherited.of(widget.taskContext).newTask(
-                          nameController.text,
-                          imageController.text,
-                          int.parse(difficultyController.text),
-                        );
+                        TaskInherited.of(widget.taskContext).newTask(
+                            nameController.text,
+                            imageController.text,
+                            int.parse(difficultyController.text));
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            backgroundColor: Colors.green,
-                            duration: Duration(milliseconds: 2500),
-                            content: Text('Criando uma Nova Tarefa'),
+                            content: Text('Criando uma nova Tarefa'),
                           ),
                         );
                         Navigator.pop(context);
                       }
                     },
-                    child: const Text('Adicionar!'),
+                    child: Text('Adicionar!'),
                   ),
                 ],
               ),

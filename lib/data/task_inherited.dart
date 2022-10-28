@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../components/task.dart';
 
-class TaskIncherited extends InheritedWidget {
-  TaskIncherited({
+class TaskInherited extends InheritedWidget {
+  TaskInherited({
     Key? key,
     required Widget child,
   }) : super(key: key, child: child);
@@ -29,15 +29,15 @@ class TaskIncherited extends InheritedWidget {
     return total;
   }
 
-  static TaskIncherited of(BuildContext context) {
-    final TaskIncherited? result =
-        context.dependOnInheritedWidgetOfExactType<TaskIncherited>();
-    assert(result != null, 'No TaskIncherited found in context');
+  static TaskInherited of(BuildContext context) {
+    final TaskInherited? result =
+        context.dependOnInheritedWidgetOfExactType<TaskInherited>();
+    assert(result != null, 'No TaskInherited found in context');
     return result!;
   }
 
   @override
-  bool updateShouldNotify(TaskIncherited old) {
+  bool updateShouldNotify(TaskInherited old) {
     return old.taskList.length != taskList.length;
   }
 }

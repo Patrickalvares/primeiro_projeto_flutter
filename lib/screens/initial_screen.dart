@@ -53,7 +53,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 ),
                 onPressed: () {
                   setState(() {
-                    totalNivel = TaskIncherited.of(context).totalLevel();
+                    totalNivel = TaskInherited.of(context).totalLevel();
                   });
                 },
                 child: Icon(Icons.refresh))
@@ -64,7 +64,7 @@ class _InitialScreenState extends State<InitialScreen> {
         opacity: opacidade ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
         child: ListView(
-          children: TaskIncherited.of(context).taskList,
+          children: TaskInherited.of(context).taskList,
           padding: EdgeInsets.only(top: 8, bottom: 80),
         ),
       ),
