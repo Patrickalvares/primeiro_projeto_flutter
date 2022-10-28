@@ -50,7 +50,8 @@ class _InitialScreenState extends State<InitialScreen> {
         opacity: opacidade ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
         child: ListView(
-          children: TaskIncherited.of(context).taskList/*List<Widget>.from(TaskIncherited.of(context).taskList)
+          children: TaskIncherited.of(context).taskList,
+            padding: EdgeInsets.only(top:8, bottom: 80)/*List<Widget>.from(TaskIncherited.of(context).taskList)
             ..add(
               SizedBox(
                 height: 80,
@@ -64,7 +65,7 @@ class _InitialScreenState extends State<InitialScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30.0),
             child: FloatingActionButton(
-              backgroundColor: Colors.black45,
+              backgroundColor: Colors.black26,
               child: const Icon(Icons.remove_red_eye),
               onPressed: () {
                 setState(() {
@@ -74,7 +75,7 @@ class _InitialScreenState extends State<InitialScreen> {
             ),
           ),
           FloatingActionButton(
-            backgroundColor: Colors.black26,
+            backgroundColor: Colors.green,
             child: const Icon(
               Icons.add,
             ),
