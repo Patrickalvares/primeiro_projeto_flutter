@@ -24,12 +24,26 @@ class _InitialScreenState extends State<InitialScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Tarefas'),
+            const Text(
+              'Tarefas',
+              style: TextStyle(fontSize: 32),
+            ),
             Container(
-              child: Text(
-                'Nivel total: ${totalNivel}',
-                style: TextStyle(
-                    fontSize: 18.0, decoration: TextDecoration.underline),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Nivel',
+                      ),
+                      Text('Total'),
+                    ],
+                  ),
+                  Text(
+                    " : ${totalNivel}",
+                    style: TextStyle(fontSize: 35),
+                  ),
+                ],
               ),
             ),
             ElevatedButton(
@@ -51,12 +65,7 @@ class _InitialScreenState extends State<InitialScreen> {
         duration: const Duration(milliseconds: 1000),
         child: ListView(
           children: TaskIncherited.of(context).taskList,
-            padding: EdgeInsets.only(top:8, bottom: 80)/*List<Widget>.from(TaskIncherited.of(context).taskList)
-            ..add(
-              SizedBox(
-                height: 80,
-              ),
-            )*/,
+          padding: EdgeInsets.only(top: 8, bottom: 80),
         ),
       ),
       floatingActionButton: Row(

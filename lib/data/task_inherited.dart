@@ -23,7 +23,7 @@ class TaskIncherited extends InheritedWidget {
 
   int totalLevel() {
     int total = 0;
-    for (int i = 0; i < (taskList.length - 1); i++) {
+    for (int i = 0; i < (taskList.length); i++) {
       total += taskList[i].nivel;
     }
     return total;
