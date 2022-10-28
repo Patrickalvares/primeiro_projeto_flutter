@@ -26,7 +26,7 @@ class _InitialScreenState extends State<InitialScreen> {
           children: [
             const Text(
               'Tarefas',
-              style: TextStyle(fontSize: 32),
+              style: TextStyle(fontSize: 25),
             ),
             Container(
               child: Row(
@@ -35,8 +35,12 @@ class _InitialScreenState extends State<InitialScreen> {
                     children: [
                       Text(
                         'Nivel',
+                        style: TextStyle(fontSize: 16),
                       ),
-                      Text('Total'),
+                      Text(
+                        'Total',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ],
                   ),
                   Text(
