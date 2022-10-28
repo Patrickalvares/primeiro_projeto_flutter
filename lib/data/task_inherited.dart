@@ -15,6 +15,8 @@ class TaskIncherited extends InheritedWidget {
     Task('Jogar video-game', 'assets/images/jogar.jpg', 1),
     Task('Ler', 'assets/images/livro.jpg', 2),
   ];
+
+
   void newTask(String name, String photo, int difficulty) {
     taskList.add(Task(name, photo, difficulty));
   }
@@ -22,7 +24,7 @@ class TaskIncherited extends InheritedWidget {
   int totalLevel() {
     int total = 0;
     for (int i = 0; i < (taskList.length - 1); i++) {
-      total += taskList[i].dificuldade;
+      total += taskList[i].nivel;
     }
     return total;
   }

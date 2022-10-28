@@ -11,6 +11,7 @@ class InitialScreen extends StatefulWidget {
 
 class _InitialScreenState extends State<InitialScreen> {
   bool opacidade = true;
+  int totalNivel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +22,27 @@ class _InitialScreenState extends State<InitialScreen> {
           size: 40,
         ),
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Tarefas'),
             Container(
-              child: Text('teste'),
-            )
+              child: Text(
+                'Nivel total: ${totalNivel}',
+                style: TextStyle(
+                    fontSize: 18.0, decoration: TextDecoration.underline),
+              ),
+            ),
+            ElevatedButton(
+                style: const ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll<Color>(Colors.pinkAccent),
+                ),
+                onPressed: () {
+                  setState(() {
+                    totalNivel = TaskIncherited.of(context).totalLevel();
+                  });
+                },
+                child: Icon(Icons.refresh))
           ],
         ),
       ),
@@ -34,7 +50,12 @@ class _InitialScreenState extends State<InitialScreen> {
         opacity: opacidade ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
         child: ListView(
-          children: TaskIncherited.of(context).taskList,
+          children: TaskIncherited.of(context).taskList/*List<Widget>.from(TaskIncherited.of(context).taskList)
+            ..add(
+              SizedBox(
+                height: 80,
+              ),
+            )*/,
         ),
       ),
       floatingActionButton: Row(
@@ -53,7 +74,7 @@ class _InitialScreenState extends State<InitialScreen> {
             ),
           ),
           FloatingActionButton(
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.black26,
             child: const Icon(
               Icons.add,
             ),
