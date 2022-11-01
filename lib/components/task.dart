@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:repos/data/task_dao.dart';
 
 import 'difficulty.dart';
 
@@ -116,6 +117,7 @@ class _TaskState extends State<Task> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20.0),
                         child: ElevatedButton(
+                          onLongPress: (){TaskDao().delete(widget.nome);},
                             onPressed: () {
                               setState(() {
                                 verificarValor();

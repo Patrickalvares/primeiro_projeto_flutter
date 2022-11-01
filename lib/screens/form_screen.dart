@@ -143,6 +143,9 @@ class _FormScreenState extends State<FormScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        // print(nameController.text);
+                        // print(difficultyController.text);
+                        // print(imageController.text);
                         TaskDao().save(Task(
                             nameController.text,
                             imageController.text,
