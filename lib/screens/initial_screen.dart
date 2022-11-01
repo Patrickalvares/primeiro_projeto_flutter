@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:repos/data/task_dao.dart';
 import 'package:repos/data/task_inherited.dart';
 import 'package:repos/screens/form_screen.dart';
+
+import '../components/task.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -28,27 +31,25 @@ class _InitialScreenState extends State<InitialScreen> {
               'Tarefas',
               style: TextStyle(fontSize: 25),
             ),
-            Container(
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Nivel',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        'Total',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    " : ${totalNivel}",
-                    style: TextStyle(fontSize: 35),
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                Column(
+                  children: const [
+                    Text(
+                      'Nivel',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      'Total',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+                Text(
+                  " : ${totalNivel}",
+                  style: const TextStyle(fontSize: 35),
+                ),
+              ],
             ),
             ElevatedButton(
                 style: const ButtonStyle(
@@ -60,16 +61,80 @@ class _InitialScreenState extends State<InitialScreen> {
                     totalNivel = TaskInherited.of(context).totalLevel();
                   });
                 },
-                child: Icon(Icons.refresh))
+                child: const Icon(Icons.refresh))
           ],
         ),
       ),
       body: AnimatedOpacity(
         opacity: opacidade ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
-        child: ListView(
-          children: TaskInherited.of(context).taskList,
-          padding: EdgeInsets.only(top: 8, bottom: 80),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 80),
+          child: FutureBuilder<List<Task>>(
+              future: TaskDao().findAll(),
+              builder: (context, snapshot) {
+                List<Task>? itens = snapshot.data;
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                    return Center(
+                      child: Column(
+                        children: const [
+                          CircularProgressIndicator(),
+                          Text('Carregando...')
+                        ],
+                      ),
+                    );
+                    break;
+                  case ConnectionState.waiting:
+                    return Center(
+                      child: Column(
+                        children: const [
+                          CircularProgressIndicator(),
+                          Text('Carregando...')
+                        ],
+                      ),
+                    );
+                    break;
+                  case ConnectionState.active:
+                    return Center(
+                      child: Column(
+                        children: const [
+                          CircularProgressIndicator(),
+                          Text('Carregando...')
+                        ],
+                      ),
+                    );
+                    break;
+                  case ConnectionState.done:
+                    if (snapshot.hasData && itens != null) {
+                      if (itens.isNotEmpty) {
+                        return ListView.builder(
+                            itemCount: itens.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final Task tarefa = itens[index];
+                              return tarefa;
+                            });
+                      }
+                      return Center(
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.error_outline,
+                              size: 128,
+                            ),
+                            Text(
+                              'Não há nenhuma Tarefa',
+                              style: TextStyle(fontSize: 32),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                    return const Text(' Erro ao carregar Tarefas');
+                    break;
+                }
+                return Text('Erro desconhecido');
+              }),
         ),
       ),
       floatingActionButton: Row(
@@ -98,7 +163,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 MaterialPageRoute(
                   builder: (contextNew) => FormScreen(taskContext: context),
                 ),
-              );
+              ).then((value) => setState(() {}));
             },
           ),
         ],
