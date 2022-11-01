@@ -153,18 +153,19 @@ class _InitialScreenState extends State<InitialScreen> {
             ),
           ),
           FloatingActionButton(
-            backgroundColor: Colors.green,
-            child: const Icon(
-              Icons.add,
-            ),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (contextNew) => FormScreen(taskContext: context),
+                  builder: (contextNew) => FormScreen(
+                    taskContext: context,
+                  ),
                 ),
-              ).then((value) => setState(() {}));
+              ).then((value) => setState(() {
+                print('Recarregando a tela inicial');
+              }));
             },
+            child: const Icon(Icons.add),
           ),
         ],
       ),
