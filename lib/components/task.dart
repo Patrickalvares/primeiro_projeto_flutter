@@ -16,6 +16,7 @@ class Task extends StatefulWidget {
   @override
   State<Task> createState() => _TaskState();
 }
+
 class _TaskState extends State<Task> {
   bool assetOrNetwork() {
     if (widget.foto.contains('http')) {
@@ -48,37 +49,41 @@ class _TaskState extends State<Task> {
     }
   }
 
+  showDeleteAlert(BuildContext context) {
+    Widget cancelaButton = FloatingActionButton(
+      child: Text("Não"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continuaButton = FloatingActionButton(
+      child: Text("Sim"),
+      onPressed: () {
+        Navigator.pop(context);
+        TaskDao().delete(widget.nome);
+      },
+    );
+    //configura o AlertDialog
+    //configura o AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirmar"),
+      content: Text("Deseja deletar a tarefa?"),
+      actions: [
+        cancelaButton,
+        continuaButton,
+      ],
+    );
+    //exibe o diálogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    showDeleteAlert(BuildContext context) {
-      Widget cancelaButton = FloatingActionButton(
-        child: Text("Não"),
-        onPressed:  () {Navigator.pop(context);},
-      );
-      Widget continuaButton = FloatingActionButton(
-        child: Text("Sim"),
-        onPressed:  () {Navigator.pop(context);
-          TaskDao().delete(widget.nome);},
-      );
-      //configura o AlertDialog
-      //configura o AlertDialog
-      AlertDialog alert = AlertDialog(
-        title: Text("Confirmar"),
-        content: Text("Deseja deletar a tarefa?"),
-        actions: [
-          cancelaButton,
-          continuaButton,
-        ],
-      );
-      //exibe o diálogo
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
-    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
@@ -139,14 +144,15 @@ class _TaskState extends State<Task> {
                         Difficulty(difficultyLevel: widget.dificuldade),
                       ],
                     ),
-
                     SizedBox(
                       height: 52,
                       width: 72,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 20.0),
                         child: ElevatedButton(
-                          onLongPress: (){showDeleteAlert(context);},
+                            onLongPress: () {
+                              showDeleteAlert(context);
+                            },
                             onPressed: () {
                               setState(() {
                                 verificarValor();

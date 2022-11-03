@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:repos/components/task.dart';
 import 'package:repos/data/task_dao.dart';
 
-
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key, required this.taskContext}) : super(key: key);
 

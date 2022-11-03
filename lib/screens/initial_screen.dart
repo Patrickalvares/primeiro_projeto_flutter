@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:repos/data/task_dao.dart';
 import 'package:repos/data/task_inherited.dart';
@@ -162,8 +164,10 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                 ),
               ).then((value) => setState(() {
-                print('Recarregando a tela inicial');
-              }));
+                    sleep(Duration(seconds: 1));
+                    totalNivel = TaskInherited.of(context).totalLevel();
+                    print('Recarregando a tela inicial');
+                  }));
             },
             child: const Icon(Icons.add),
           ),
