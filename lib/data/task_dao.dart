@@ -47,7 +47,7 @@ class TaskDao {
     print('Acessando o findAll: ');
     final Database bancoDeDados = await getDatabase();
     final List<Map<String, dynamic>> result =
-    await bancoDeDados.query(_tablename);
+        await bancoDeDados.query(_tablename);
     print('Procurando dados no banco de dados... encontrado: $result');
     return toList(result);
   }
